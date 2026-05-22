@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# St. Lodovico Pavoni - Member Portal
 
-## Getting Started
+A modern, production-ready member portal built with Next.js, TypeScript, Supabase, and Tailwind CSS.
 
-First, run the development server:
+## Features
+
+### ✅ Completed
+- **8 Feature Pages**: Dashboard, Schedule, Attendance, Formation, Events, Members, Announcements, Settings
+- **Authentication**: Full sign-up, login, forgot password flow with Supabase
+- **Authorization**: Route protection middleware - unauthenticated users redirected to login
+- **Real-time Data**: Supabase PostgreSQL with 7 tables and sample data
+- **Dark Theme**: Custom color scheme with gold accents
+- **Responsive Design**: Mobile-optimized with Tailwind CSS
+- **TypeScript**: Full type safety with generated Supabase types
+
+## Quick Start - Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables (.env.local):
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+NEXT_PUBLIC_SITE_NAME=St. Lodovico Pavoni
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Visit http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy to Vercel (3 Steps)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Step 1: Create GitHub Repository**
+- Go to github.com/new
+- Create `slpc-member-portal` repo (public)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Step 2: Push Code**
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/slpc-member-portal.git
+git branch -M main
+git push -u origin main
+```
 
-## Learn More
+**Step 3: Deploy on Vercel**
+1. Visit vercel.com/dashboard
+2. Click "Add New" → "Project"
+3. Import your GitHub repo
+4. Add Environment Variables (same as .env.local)
+5. Click Deploy
+6. Live in 2-3 minutes! 🎉
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend**: Next.js 16.2.6, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Supabase PostgreSQL
+- **Auth**: Supabase Auth (email/password)
+- **Deployment**: Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Pages
 
-## Deploy on Vercel
+- **Dashboard**: Overview with stats and announcements
+- **Schedule**: Upcoming duties calendar
+- **Attendance**: Attendance tracking and history
+- **Formation**: Sacrament materials and progress
+- **Events**: Church events calendar
+- **Members**: Member directory
+- **Announcements**: Church announcements feed
+- **Settings**: User profile and logout
+- **Auth**: Login, signup, forgot password pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Authentication
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Sign up with email, password, full name
+- Login with email/password
+- Forgot password recovery
+- Protected routes (redirect to login if not authenticated)
+- Remember me checkbox on login
+- Secure JWT tokens in cookies
+
+## Database
+
+7 PostgreSQL tables:
+- members, duties, attendance, events, formations, member_formations, announcements
+
+Sample data included for testing.
+
+## Commands
+
+```bash
+npm run dev      # Start dev server
+npm run build    # Build for production
+npm start        # Start prod server
+npm run lint     # Check code quality
+```
+
+## Troubleshooting
+
+**Deployment fails?**
+- Verify env variables in Vercel dashboard
+- Check Node version (18+) in Vercel settings
+- Ensure GitHub repo is public
+
+**Login issues?**
+- Clear browser cookies
+- Restart dev server
+- Check .env.local is in correct folder (d:\SLPC-MAS\app)
+
+**Can't connect to Supabase?**
+- Check URL doesn't include `/rest/v1/`
+- Verify ANON_KEY is set
+- Test Supabase connection in browser console
+
+## Support
+
+Questions? Email: admin@pavoni.local
+
+© 2026 St. Lodovico Pavoni. All rights reserved.
+
+**Status**: ✅ Production Ready
