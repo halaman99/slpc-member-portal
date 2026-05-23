@@ -102,10 +102,10 @@ export default function Announcements() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Total Announcements" value={announcements.length} subText="this month" badge="blue" />
-          <StatCard label="Pinned" value={pinnedCount} subText="important" badge="red" />
-          <StatCard label="Unread" value={unreadCount} subText="new" badge="amber" />
-          <StatCard label="High Priority" value={announcements.filter(a => a.priority === 'high').length} subText="requires attention" badge="purple" />
+          <StatCard label="Total Announcements" value={announcements.length} sub="this month" badge={{ text: 'This month', color: 'green' as const }} />
+          <StatCard label="Pinned" value={pinnedCount} sub="important" badge={{ text: 'Important', color: 'red' as const }} />
+          <StatCard label="Unread" value={unreadCount} sub="new" badge={{ text: 'New', color: 'amber' as const }} />
+          <StatCard label="High Priority" value={announcements.filter(a => a.priority === 'high').length} sub="requires attention" badge={{ text: 'Attention', color: 'red' as const }} />
         </div>
 
         {/* Category Filter */}
