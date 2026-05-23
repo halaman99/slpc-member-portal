@@ -89,7 +89,7 @@ const getCategoryColor = (category: string) => {
     case 'formation': return 'teal'
     case 'maintenance': return 'amber'
     case 'policy': return 'green'
-    default: return 'gray'
+    default: return 'red'
   }
 }
 
