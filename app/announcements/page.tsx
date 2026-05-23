@@ -156,7 +156,7 @@ export default function Announcements() {
                       <div className="w-2 h-2 rounded-full bg-[#c9a227]" />
                     )}
                     <Badge
-                      label={announcement.category.charAt(0).toUpperCase() + announcement.category.slice(1)}
+                      text={announcement.category.charAt(0).toUpperCase() + announcement.category.slice(1)}
                       color={getCategoryColor(announcement.category)}
                     />
                   </div>
