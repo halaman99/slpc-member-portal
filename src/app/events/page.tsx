@@ -2,7 +2,7 @@
 
 import { MainLayout } from '@/components/MainLayout'
 import { Card, CardHeader, Badge } from '@/components/UI'
-import { CalendarEvent, MapPin, Clock } from 'lucide-react'
+import { Calendar, MapPin, Clock } from 'lucide-react'
 
 const mockUser = { id: '1', full_name: 'Jose Reyes', role: 'Head Server', avatar_initials: 'JR', email: 'jose.reyes@example.com' }
 
@@ -31,7 +31,7 @@ export default function Events() {
         </div>
 
         <Card>
-          <CardHeader title="Upcoming Events" icon={<CalendarEvent className="w-4 h-4 text-[#c9a227]" />} />
+          <CardHeader title="Upcoming Events" icon={<Calendar className="w-4 h-4 text-[#c9a227]" />} />
           <div className="space-y-3">
             {events.map((event) => {
               const typeInfo = typeColors[event.type as keyof typeof typeColors]

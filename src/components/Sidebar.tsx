@@ -7,7 +7,6 @@ import {
   Calendar,
   BarChart3,
   BookOpen,
-  CalendarEvent,
   Users,
   Bell,
   Settings,
@@ -23,7 +22,7 @@ export function Sidebar() {
     { href: '/schedule', label: 'My Schedule', icon: Calendar },
     { href: '/attendance', label: 'Attendance', icon: BarChart3 },
     { href: '/formation', label: 'Formation', icon: BookOpen },
-    { href: '/events', label: 'Events', icon: CalendarEvent },
+    { href: '/events', label: 'Events', icon: Calendar },
     { href: '/members', label: 'Members', icon: Users },
     { href: '/announcements', label: 'Announcements', icon: Bell },
   ]

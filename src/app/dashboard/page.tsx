@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { MainLayout } from '@/components/MainLayout'
 import { Card, CardHeader, StatCard, ProgressBar, Badge } from '@/components/UI'
-import { Calendar, BarChart3, Star, Award, CalendarWeek, ChartPie, BookOpen, Bell, CalendarEvent, Users } from 'lucide-react'
+import { Calendar, BarChart3, Star, Award, CalendarDays, PieChart, BookOpen, Bell, Calendar as CalendarIcon, Users } from 'lucide-react'
 
 const mockUser = {
   id: '1',
@@ -89,7 +89,7 @@ export default function Dashboard() {
           <CardHeader
             title="This week's duties"
             link={{ label: 'View all' }}
-            icon={<CalendarWeek className="w-3.5 h-3.5 text-[#c9a227]" />}
+            icon={<CalendarDays className="w-3.5 h-3.5 text-[#c9a227]" />}
           />
           <div className="space-y-2">
             {mockDuties.map((duty, i) => (
@@ -108,7 +108,7 @@ export default function Dashboard() {
           <CardHeader
             title="Attendance overview"
             link={{ label: 'May 2026' }}
-            icon={<ChartPie className="w-3.5 h-3.5 text-[#c9a227]" />}
+            icon={<PieChart className="w-3.5 h-3.5 text-[#c9a227]" />}
           />
           <ProgressBar label="Masses served" value={92} color="gold" />
           <ProgressBar label="Formations attended" value={80} color="green" />
@@ -178,7 +178,7 @@ export default function Dashboard() {
             <CardHeader
               title="Upcoming events"
               link={{ label: 'View calendar' }}
-              icon={<CalendarEvent className="w-3.5 h-3.5 text-[#c9a227]" />}
+              icon={<CalendarIcon className="w-3.5 h-3.5 text-[#c9a227]" />}
             />
             <div className="space-y-3">
               {mockEvents.map((event, i) => (
