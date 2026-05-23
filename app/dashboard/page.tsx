@@ -62,7 +62,7 @@ export default function Dashboard() {
           label="Attendance rate"
           value={`${mockUser.attendance_rate}%`}
           sub={`${Math.round(mockUser.attendance_rate * 0.5)} of 50 duties served`}
-          badge={{ text: 'Good', color: 'green' }}
+          badge={{ text: 'Good', color: 'green' as const }}
         />
         <StatCard
           icon={<Calendar className="w-3.5 h-3.5 text-[#c9a227]" />}
@@ -75,7 +75,7 @@ export default function Dashboard() {
           label="Formation progress"
           value="3/5"
           sub="Modules completed"
-          badge={{ text: 'In progress', color: 'amber' }}
+          badge={{ text: 'In progress', color: 'amber' as const }}
         />
         <StatCard
           icon={<Award className="w-3.5 h-3.5 text-[#c9a227]" />}
