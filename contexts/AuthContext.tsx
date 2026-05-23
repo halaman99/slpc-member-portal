@@ -27,8 +27,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check initial session
-    const checkSession = async () => {
+    let subscription: any = null
+
+    const setupAuth = async () => {
+      // Check initial session
       const { session } = await (await import('@/lib/auth')).getSession()
       if (session?.user) {
         setUser({
@@ -39,23 +41,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         })
       }
       setLoading(false)
+
+      // Subscribe to auth changes
+      subscription = await onAuthStateChange((authUser: any) => {
+        if (authUser) {
+          setUser({
+            id: authUser.id,
+            email: authUser.email || '',
+            full_name: authUser.user_metadata?.full_name,
+            avatar_url: authUser.user_metadata?.avatar_url,
+          })
+        } else {
+          setUser(null)
+        }
+      })
     }
 
-    checkSession()
-
-    // Subscribe to auth changes
-    const subscription = onAuthStateChange((authUser: any) => {
-      if (authUser) {
-        setUser({
-          id: authUser.id,
-          email: authUser.email || '',
-          full_name: authUser.user_metadata?.full_name,
-          avatar_url: authUser.user_metadata?.avatar_url,
-        })
-      } else {
-        setUser(null)
-      }
-    })
+    setupAuth()
 
     return () => {
       subscription?.unsubscribe()
