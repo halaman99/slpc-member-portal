@@ -44,10 +44,10 @@ export default function Attendance() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Attendance Rate" value={`${attendanceRate}%`} subText={`${attendanceStats.attended}/${attendanceStats.totalMasses} masses`} badge="green" />
-          <StatCard label="On-Time Rate" value={`${Math.round((attendanceStats.onTime / attendanceStats.attended) * 100)}%`} subText={`${attendanceStats.onTime} on time`} badge="teal" />
-          <StatCard label="Excused Absences" value={attendanceStats.excused} subText="authorized" badge="blue" />
-          <StatCard label="Current Streak" value="12" subText="masses in a row" badge="purple" />
+          <StatCard label="Attendance Rate" value={`${attendanceRate}%`} sub={`${attendanceStats.attended}/${attendanceStats.totalMasses} masses`} badge={{ text: 'Good', color: 'green' as const }} />
+          <StatCard label="On-Time Rate" value={`${Math.round((attendanceStats.onTime / attendanceStats.attended) * 100)}%`} sub={`${attendanceStats.onTime} on time`} badge={{ text: 'On track', color: 'green' as const }} />
+          <StatCard label="Excused Absences" value={attendanceStats.excused} sub="authorized" badge={{ text: 'Approved', color: 'amber' as const }} />
+          <StatCard label="Current Streak" value="12" sub="masses in a row" badge={{ text: 'Excellent', color: 'green' as const }} />
         </div>
 
         {/* Overall Performance and Monthly Breakdown */}
