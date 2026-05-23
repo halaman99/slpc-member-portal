@@ -5,6 +5,7 @@ export async function signUpWithEmail(email: string, password: string, fullName:
     email,
     password,
     options: {
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
       data: {
         full_name: fullName,
       },

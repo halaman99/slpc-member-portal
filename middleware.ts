@@ -12,8 +12,8 @@ const protectedRoutes = [
   '/settings',
 ]
 
-// Auth routes that shouldn't be accessed while authenticated
-const authRoutes = ['/auth/login', '/auth/signup']
+// Auth routes that shouldn't be redirected (includes callback)
+const authRoutes = ['/auth/login', '/auth/signup', '/auth/callback', '/auth/forgot-password', '/auth/reset-password']
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
