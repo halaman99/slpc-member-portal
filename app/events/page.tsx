@@ -66,7 +66,7 @@ export default function Events() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Upcoming Events" value={upcomingEvents.length} sub="next 90 days" badge={{ text: 'Upcoming', color: 'blue' as const }} />
+          <StatCard label="Upcoming Events" value={upcomingEvents.length} sub="next 90 days" badge={{ text: 'Upcoming', color: 'amber' as const }} />
           <StatCard label="Registered" value={registeredCount} sub="confirmed" badge={{ text: 'Registered', color: 'green' as const }} />
           <StatCard label="Total Attendees" value={upcomingEvents.reduce((sum, e) => sum + e.attendees, 0)} sub="across events" badge={{ text: 'Total', color: 'green' as const }} />
           <StatCard label="Served Events" value="12" sub="past 6 months" badge={{ text: 'Served', color: 'green' as const }} />
