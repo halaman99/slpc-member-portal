@@ -138,8 +138,8 @@ export default function Members() {
                     <p className="text-xs text-[#b8ada0]">attendance</p>
                   </div>
                   <Badge
-                    label={member.status === 'active' ? 'Active' : 'Inactive'}
-                    color={member.status === 'active' ? 'green' : 'gray'}
+                    text={member.status === 'active' ? 'Active' : 'Inactive'}
+                    color={member.status === 'active' ? 'green' : 'red'}
                   />
                 </div>
               </div>

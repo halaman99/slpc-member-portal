@@ -87,7 +87,7 @@ export default function Events() {
                     <p className="text-sm text-[#b8ada0]">{event.description}</p>
                   </div>
                   <Badge
-                    label={event.registered ? 'Registered' : 'Not Registered'}
+                    text={event.registered ? 'Registered' : 'Not Registered'}
                     color={event.registered ? 'green' : 'amber'}
                   />
                 </div>
