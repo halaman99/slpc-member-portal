@@ -116,7 +116,7 @@ export default function Events() {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <Badge label={`Your Role: ${event.role}`} color="blue" />
+                  <Badge text={`Your Role: ${event.role}`} color="blue" />
                   <button className={`px-4 py-1.5 rounded text-sm font-semibold transition-colors ${
                     event.registered
                       ? 'bg-[#2a1010] text-[#b8ada0] hover:bg-[#3a2020]'
@@ -144,7 +144,7 @@ export default function Events() {
                   <p className="font-semibold text-[#f5f0e8]">{event.title}</p>
                   <p className="text-xs text-[#b8ada0]">{event.date}</p>
                 </div>
-                <Badge label={event.role} color="teal" />
+                <Badge text={event.role} color="teal" />
               </div>
             ))}
           </div>

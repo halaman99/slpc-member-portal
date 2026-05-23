@@ -142,7 +142,7 @@ export default function Attendance() {
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-[#b8ada0]">{record.time}</span>
                   <Badge
-                    label={record.status === 'present' ? 'Present' : record.status === 'late' ? 'Late' : 'Excused'}
+                    text={record.status === 'present' ? 'Present' : record.status === 'late' ? 'Late' : 'Excused'}
                     color={record.status === 'present' ? 'green' : record.status === 'late' ? 'amber' : 'blue'}
                   />
                 </div>
