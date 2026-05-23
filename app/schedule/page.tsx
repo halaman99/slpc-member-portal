@@ -87,7 +87,7 @@ export default function Schedule() {
                       <p className="text-xs text-[#b8ada0]">{duty.role}</p>
                     </div>
                     <Badge
-                      label={duty.status === 'confirmed' ? 'Confirmed' : duty.status === 'pending' ? 'Pending' : 'Available'}
+                      text={duty.status === 'confirmed' ? 'Confirmed' : duty.status === 'pending' ? 'Pending' : 'Available'}
                       color={duty.status === 'confirmed' ? 'green' : duty.status === 'pending' ? 'amber' : 'blue'}
                     />
                   </div>
@@ -126,7 +126,7 @@ export default function Schedule() {
                       <p className="text-xs text-[#b8ada0]">from {swap.from}</p>
                     </div>
                     <Badge
-                      label={swap.status === 'pending' ? 'Pending' : 'Approved'}
+                      text={swap.status === 'pending' ? 'Pending' : 'Approved'}
                       color={swap.status === 'pending' ? 'amber' : 'green'}
                     />
                   </div>

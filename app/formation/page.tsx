@@ -105,8 +105,8 @@ export default function Formation() {
                     <p className="text-xs text-[#b8ada0]">{material.description}</p>
                   </div>
                   <Badge
-                    label={material.status === 'completed' ? 'Complete' : material.status === 'in-progress' ? 'In Progress' : 'Not Started'}
-                    color={material.status === 'completed' ? 'green' : material.status === 'in-progress' ? 'amber' : 'gray'}
+                    text={material.status === 'completed' ? 'Complete' : material.status === 'in-progress' ? 'In Progress' : 'Not Started'}
+                    color={material.status === 'completed' ? 'green' : material.status === 'in-progress' ? 'amber' : 'red'}
                   />
                 </div>
 
