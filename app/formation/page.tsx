@@ -115,7 +115,7 @@ export default function Formation() {
                     <span className="text-xs text-[#b8ada0]">Progress</span>
                     <span className="text-xs font-semibold text-[#f5f0e8]">{material.progress}%</span>
                   </div>
-                  <ProgressBar label={`${material.name} progress`} value={material.progress} color={material.status === 'completed' ? 'green' : 'gold'} />
+                  <ProgressBar label={`${material.title} progress`} value={material.progress} color={material.status === 'completed' ? 'green' : 'gold'} />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 text-xs text-[#b8ada0] pb-3 border-b border-[#2a1010]">
