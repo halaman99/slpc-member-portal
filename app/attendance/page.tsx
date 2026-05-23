@@ -65,21 +65,21 @@ export default function Attendance() {
                   <span className="text-sm text-[#b8ada0]">Attendance Rate</span>
                   <span className="text-lg font-semibold text-[#f5f0e8]">{attendanceRate}%</span>
                 </div>
-                <ProgressBar percentage={attendanceRate} color="green" />
+                <ProgressBar label="Overall attendance" value={attendanceRate} color="green" />
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-[#b8ada0]">On-Time Performance</span>
                   <span className="text-lg font-semibold text-[#f5f0e8]">87%</span>
                 </div>
-                <ProgressBar percentage={87} color="teal" />
+                <ProgressBar label="On-time rate" value={87} color="green" />
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-[#b8ada0]">Participation Score</span>
                   <span className="text-lg font-semibold text-[#f5f0e8]">94%</span>
                 </div>
-                <ProgressBar percentage={94} color="purple" />
+                <ProgressBar label="Participation" value={94} color="green" />
               </div>
             </div>
           </Card>
@@ -96,7 +96,7 @@ export default function Attendance() {
                 <div key={month.month} className="flex items-center gap-3">
                   <span className="text-xs text-[#b8ada0] w-16">{month.month}</span>
                   <div className="flex-1">
-                    <ProgressBar percentage={month.percentage} color={month.percentage === 100 ? 'green' : 'amber'} />
+                  <ProgressBar label={`${month.month} attendance`} value={month.percentage} color={month.percentage === 100 ? 'green' : 'gold'} />
                   </div>
                   <span className="text-xs text-[#b8ada0] w-12 text-right">
                     {month.attended}/{month.total}
