@@ -1,7 +1,7 @@
 'use client'
 import { MainLayout } from '@/components/MainLayout'
 import { Card, CardHeader, StatCard, Badge } from '@/components/UI'
-import { Users, UserCheck, UserClock, Award } from 'lucide-react'
+import { Users, UserCheck, Award } from 'lucide-react'
 
 const mockUser = { full_name: 'Jose Reyes', role: 'Head Server', avatar_initials: 'JR' }
 
