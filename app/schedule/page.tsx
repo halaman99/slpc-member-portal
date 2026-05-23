@@ -63,10 +63,10 @@ export default function Schedule() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Confirmed Duties" value={confirmedCount} subText={`${confirmedCount} scheduled`} badge="green" />
-          <StatCard label="Pending Approval" value={pendingCount} subText={`${pendingCount} awaiting`} badge="amber" />
-          <StatCard label="Available Slots" value={availableCount} subText={`${availableCount} open`} badge="blue" />
-          <StatCard label="Next Duty" value="2 days" subText="Sunday 6:00 AM" badge="teal" />
+          <StatCard label="Confirmed Duties" value={confirmedCount} sub={`${confirmedCount} scheduled`} badge={{ text: 'Confirmed', color: 'green' as const }} />
+          <StatCard label="Pending Approval" value={pendingCount} sub={`${pendingCount} awaiting`} badge={{ text: 'Pending', color: 'amber' as const }} />
+          <StatCard label="Available Slots" value={availableCount} sub={`${availableCount} open`} badge={{ text: 'Available', color: 'blue' as const }} />
+          <StatCard label="Next Duty" value="2 days" sub="Sunday 6:00 AM" badge={{ text: 'Upcoming', color: 'green' as const }} />
         </div>
 
         {/* Main Schedule Grid */}

@@ -84,10 +84,10 @@ export default function Members() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Total Members" value={activeCount} subText="active" badge="blue" />
-          <StatCard label="Average Attendance" value={`${avgAttendance}%`} subText="community-wide" badge="green" />
-          <StatCard label="New Members" value="1" subText="this year" badge="amber" />
-          <StatCard label="Mentors" value="1" subText="active" badge="purple" />
+          <StatCard label="Total Members" value={activeCount} sub="active" badge={{ text: 'Active', color: 'green' as const }} />
+          <StatCard label="Average Attendance" value={`${avgAttendance}%`} sub="community-wide" badge={{ text: 'Good', color: 'green' as const }} />
+          <StatCard label="New Members" value="1" sub="this year" badge={{ text: 'New', color: 'amber' as const }} />
+          <StatCard label="Mentors" value="1" sub="active" badge={{ text: 'Active', color: 'green' as const }} />
         </div>
 
         {/* Member Roles */}

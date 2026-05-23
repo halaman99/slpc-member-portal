@@ -84,10 +84,10 @@ export default function Formation() {
       <div className="space-y-5">
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-3">
-          <StatCard label="Completed Materials" value={completedCount} subText={`${completedCount}/${formationMaterials.length} done`} badge="green" />
-          <StatCard label="In Progress" value={inProgressCount} subText="actively learning" badge="amber" />
-          <StatCard label="Average Progress" value={`${avgProgress}%`} subText="all materials" badge="teal" />
-          <StatCard label="Certifications" value={certifications.length} subText="earned" badge="purple" />
+          <StatCard label="Completed Materials" value={completedCount} sub={`${completedCount}/${formationMaterials.length} done`} badge={{ text: 'Completed', color: 'green' as const }} />
+          <StatCard label="In Progress" value={inProgressCount} sub="actively learning" badge={{ text: 'In progress', color: 'amber' as const }} />
+          <StatCard label="Average Progress" value={`${avgProgress}%`} sub="all materials" badge={{ text: 'Progress', color: 'green' as const }} />
+          <StatCard label="Certifications" value={certifications.length} sub="earned" badge={{ text: 'Earned', color: 'green' as const }} />
         </div>
 
         {/* Learning Materials Grid */}
