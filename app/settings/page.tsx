@@ -24,7 +24,7 @@ export default function SettingsPage() {
               <div className="flex-1">
                 <h4 className="text-lg font-semibold text-[#f5f0e8]">Jose Reyes</h4>
                 <p className="text-sm text-[#b8ada0] mb-1">Head Server</p>
-                <Badge label="Member since 2022" color="blue" />
+                <Badge text="Member since 2022" color="blue" />
               </div>
               <button className="px-4 py-2 bg-[#c9a227] text-[#1a0808] rounded font-semibold hover:bg-[#b89a1f] transition-colors">
                 Upload Photo
@@ -47,7 +47,7 @@ export default function SettingsPage() {
               <div className="p-3 border border-[#3a2020] rounded">
                 <p className="text-xs text-[#b8ada0] mb-1">Role</p>
                 <div className="flex items-center gap-2">
-                  <Badge label="Head Server" color="green" />
+                  <Badge text="Head Server" color="green" />
                 </div>
               </div>
             </div>
