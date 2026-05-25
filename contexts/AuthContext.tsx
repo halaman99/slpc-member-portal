@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { onAuthStateChange } from '@/lib/auth'
+import { onAuthStateChange, getSession } from '@/lib/auth'
 
 interface AuthUser {
   id: string
@@ -14,47 +14,67 @@ interface AuthContextType {
   user: AuthUser | null
   loading: boolean
   isAuthenticated: boolean
+  error: string | null
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   isAuthenticated: false,
+  error: null,
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     let subscription: any = null
 
     const setupAuth = async () => {
-      // Check initial session
-      const { session } = await (await import('@/lib/auth')).getSession()
-      if (session?.user) {
-        setUser({
-          id: session.user.id,
-          email: session.user.email || '',
-          full_name: session.user.user_metadata?.full_name,
-          avatar_url: session.user.user_metadata?.avatar_url,
-        })
-      }
-      setLoading(false)
-
-      // Subscribe to auth changes
-      subscription = await onAuthStateChange((authUser: any) => {
-        if (authUser) {
-          setUser({
-            id: authUser.id,
-            email: authUser.email || '',
-            full_name: authUser.user_metadata?.full_name,
-            avatar_url: authUser.user_metadata?.avatar_url,
-          })
-        } else {
-          setUser(null)
+      try {
+        // Check initial session
+        const { session, error: sessionError } = await getSession()
+        
+        if (sessionError) {
+          console.error('Session error:', sessionError)
+          setError(sessionError.message)
         }
-      })
+
+        if (session?.user) {
+          setUser({
+            id: session.user.id,
+            email: session.user.email || '',
+            full_name: session.user.user_metadata?.full_name,
+            avatar_url: session.user.user_metadata?.avatar_url,
+          })
+          setError(null)
+        }
+
+        // Subscribe to auth changes
+        const { data } = await (await import('@/lib/auth')).supabase.auth.onAuthStateChange(
+          (event: string, session: any) => {
+            if (session?.user) {
+              setUser({
+                id: session.user.id,
+                email: session.user.email || '',
+                full_name: session.user.user_metadata?.full_name,
+                avatar_url: session.user.user_metadata?.avatar_url,
+              })
+              setError(null)
+            } else {
+              setUser(null)
+            }
+          }
+        )
+        subscription = data?.subscription
+      } catch (err) {
+        console.error('Auth setup error:', err)
+        setError(err instanceof Error ? err.message : 'Auth initialization failed')
+      } finally {
+        setLoading(false)
+      }
     }
 
     setupAuth()
@@ -68,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     loading,
     isAuthenticated: !!user,
+    error,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

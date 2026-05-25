@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
 import {
   LayoutDashboard,
   Calendar,
@@ -13,9 +14,25 @@ import {
   Settings,
   LogOut,
 } from 'lucide-react'
+import { signOut } from '@/lib/auth'
 
 export function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    try {
+      const { error } = await signOut()
+      if (error) throw error
+      router.push('/auth/login')
+      router.refresh()
+    } catch (err) {
+      console.error('Logout failed:', err)
+      setIsLoggingOut(false)
+    }
+  }
 
   const navItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -80,9 +97,13 @@ export function Sidebar() {
           <Settings className="w-4 h-4" />
           <span>Settings</span>
         </Link>
-        <button className="flex items-center gap-2.5 px-0 py-2 text-sm text-[#8a6070] hover:text-[#c9b8a8] transition-colors w-full">
+        <button 
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className="flex items-center gap-2.5 px-0 py-2 text-sm text-[#c95a5a] hover:text-[#e8a8a8] disabled:opacity-50 transition-colors w-full"
+        >
           <LogOut className="w-4 h-4" />
-          <span>Logout</span>
+          <span>{isLoggingOut ? 'Signing out...' : 'Logout'}</span>
         </button>
       </div>
     </aside>
