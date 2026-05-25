@@ -173,3 +173,224 @@ export async function onAuthStateChange(callback: (user: any) => void) {
   )
   return subscription
 }
+
+// ============================================================================
+// ADMIN FUNCTIONS
+// ============================================================================
+
+/**
+ * Get current user's member record with admin status
+ */
+export async function getCurrentMember() {
+  try {
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    
+    if (userError || !user) {
+      return { member: null, error: userError }
+    }
+
+    const { data: member, error: memberError } = await supabase
+      .from('members')
+      .select('*')
+      .eq('id', user.id)
+      .single()
+
+    if (memberError) {
+      return { member: null, error: memberError }
+    }
+
+    return { member, error: null }
+  } catch (err) {
+    console.error('Error getting current member:', err)
+    return { member: null, error: err }
+  }
+}
+
+/**
+ * Check if user is admin
+ */
+export async function isUserAdmin() {
+  try {
+    const { member, error } = await getCurrentMember()
+    
+    if (error || !member) {
+      return false
+    }
+
+    return member.is_admin && !member.is_deleted
+  } catch (err) {
+    console.error('Error checking admin status:', err)
+    return false
+  }
+}
+
+/**
+ * Get count of current admins
+ */
+export async function getAdminCount() {
+  try {
+    const { count, error } = await supabase
+      .from('members')
+      .select('*', { count: 'exact' })
+      .eq('is_admin', true)
+      .eq('is_deleted', false)
+
+    if (error) {
+      console.error('Error counting admins:', error)
+      return 0
+    }
+
+    return count || 0
+  } catch (err) {
+    console.error('Error getting admin count:', err)
+    return 0
+  }
+}
+
+/**
+ * Invite a user to become admin (admin only)
+ */
+export async function inviteAdmin(inviteeEmail: string) {
+  try {
+    const isAdmin = await isUserAdmin()
+    if (!isAdmin) {
+      return { 
+        error: { 
+          message: 'Only admins can invite other admins' 
+        } 
+      }
+    }
+
+    // Check admin count doesn't exceed 5
+    const adminCount = await getAdminCount()
+    if (adminCount >= 5) {
+      return { 
+        error: { 
+          message: 'Maximum of 5 admins allowed' 
+        } 
+      }
+    }
+
+    const { member: inviter, error: inviterError } = await getCurrentMember()
+    
+    if (inviterError || !inviter) {
+      return { error: inviterError }
+    }
+
+    // Check if invite already pending
+    const { data: existingInvite } = await supabase
+      .from('admin_invites')
+      .select('id')
+      .eq('invitee_email', inviteeEmail)
+      .eq('status', 'pending')
+      .single()
+
+    if (existingInvite) {
+      return {
+        error: {
+          message: 'Invite already pending for this email'
+        }
+      }
+    }
+
+    // Create invite
+    const { data, error } = await supabase
+      .from('admin_invites')
+      .insert([
+        {
+          inviter_id: inviter.id,
+          invitee_email: inviteeEmail,
+          status: 'pending'
+        }
+      ])
+      .select()
+
+    if (error) {
+      return { error }
+    }
+
+    return { data, error: null }
+  } catch (err) {
+    console.error('Error inviting admin:', err)
+    return { error: err }
+  }
+}
+
+/**
+ * Accept admin invitation
+ */
+export async function acceptAdminInvite(inviteId: string) {
+  try {
+    const { member: currentMember, error: memberError } = await getCurrentMember()
+    
+    if (memberError || !currentMember) {
+      return { error: memberError }
+    }
+
+    // Check admin limit not exceeded
+    const adminCount = await getAdminCount()
+    if (adminCount >= 5) {
+      return {
+        error: {
+          message: 'Maximum of 5 admins allowed'
+        }
+      }
+    }
+
+    // Update invite status
+    const { error: updateError } = await supabase
+      .from('admin_invites')
+      .update({
+        status: 'accepted',
+        responded_at: new Date().toISOString()
+      })
+      .eq('id', inviteId)
+
+    if (updateError) {
+      return { error: updateError }
+    }
+
+    // Set user as admin
+    const { error: adminError } = await supabase
+      .from('members')
+      .update({
+        is_admin: true,
+        admin_approved_by: currentMember.id,
+        admin_requested_at: new Date().toISOString()
+      })
+      .eq('id', currentMember.id)
+
+    if (adminError) {
+      return { error: adminError }
+    }
+
+    return { error: null }
+  } catch (err) {
+    console.error('Error accepting admin invite:', err)
+    return { error: err }
+  }
+}
+
+/**
+ * Reject admin invitation
+ */
+export async function rejectAdminInvite(inviteId: string) {
+  try {
+    const { error } = await supabase
+      .from('admin_invites')
+      .update({
+        status: 'rejected',
+        responded_at: new Date().toISOString()
+      })
+      .eq('id', inviteId)
+
+    if (error) {
+      return { error }
+    }
+
+    return { error: null }
+  } catch (err) {
+    console.error('Error rejecting admin invite:', err)
+    return { error: err }
+  }
+}
