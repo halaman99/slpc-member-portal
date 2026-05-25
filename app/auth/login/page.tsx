@@ -26,15 +26,25 @@ export default function LoginPage() {
         return
       }
 
+      // Trim whitespace
+      const trimmedEmail = email.trim().toLowerCase()
+      const trimmedPassword = password.trim()
+
+      console.log('Attempting login with email:', trimmedEmail)
+
       // Sign in with email and password
-      const { data, error: authError } = await signInWithEmail(email, password)
+      const { data, error: authError } = await signInWithEmail(trimmedEmail, trimmedPassword)
 
       if (authError) {
+        console.error('Auth error response:', authError)
         // Handle specific Supabase errors
-        if (authError.message?.includes('email_not_confirmed')) {
+        const errorMsg = authError.message?.toLowerCase() || ''
+        if (errorMsg.includes('email_not_confirmed')) {
           setError('Please confirm your email before signing in. Check your inbox for the confirmation link.')
-        } else if (authError.message?.includes('invalid_credentials')) {
+        } else if (errorMsg.includes('invalid_credentials') || errorMsg.includes('incorrect') || errorMsg.includes('invalid')) {
           setError('Invalid email or password. Please try again.')
+        } else if (errorMsg.includes('network') || errorMsg.includes('fetch')) {
+          setError('Network error. Please check your connection and try again.')
         } else {
           setError(authError.message || 'Failed to sign in. Please try again.')
         }
@@ -44,14 +54,14 @@ export default function LoginPage() {
 
       // Check if session was created
       if (data?.session?.user) {
-        // Session created successfully - redirect to dashboard
-        // Add small delay to ensure auth context updates
-        setTimeout(() => {
-          router.push('/dashboard')
-        }, 500)
+        console.log('Login successful, user ID:', data.session.user.id)
+        // Session created successfully - redirect immediately
+        // The AuthContext will update and trigger the redirect
+        router.push('/dashboard')
         return
       }
 
+      console.warn('Login completed but no session user found')
       setError('Login failed. Please try again.')
       setLoading(false)
     } catch (err: any) {
@@ -78,7 +88,7 @@ export default function LoginPage() {
       )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         {/* Email Input */}
         <div>
           <label className="block text-xs font-medium text-[#b8ada0] mb-2">Email address</label>

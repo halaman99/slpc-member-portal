@@ -1,7 +1,8 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { onAuthStateChange, getSession } from '@/lib/auth'
+import { supabase } from '@/lib/supabase'
+import { getSession } from '@/lib/auth'
 
 interface AuthUser {
   id: string
@@ -52,8 +53,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setError(null)
         }
 
-        // Subscribe to auth changes
-        const { data } = await (await import('@/lib/auth')).supabase.auth.onAuthStateChange(
+        // Subscribe to auth changes - use direct import
+        const { data } = supabase.auth.onAuthStateChange(
           (event: string, session: any) => {
             if (session?.user) {
               setUser({
