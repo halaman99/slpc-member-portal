@@ -19,19 +19,44 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      const { data, error: authError } = await signInWithEmail(email, password)
-
-      if (authError) {
-        setError(authError.message || 'Failed to sign in')
+      // Validate inputs
+      if (!email || !password) {
+        setError('Please enter your email and password')
+        setLoading(false)
         return
       }
 
-      if (data.session) {
-        router.push('/dashboard')
+      // Sign in with email and password
+      const { data, error: authError } = await signInWithEmail(email, password)
+
+      if (authError) {
+        // Handle specific Supabase errors
+        if (authError.message?.includes('email_not_confirmed')) {
+          setError('Please confirm your email before signing in. Check your inbox for the confirmation link.')
+        } else if (authError.message?.includes('invalid_credentials')) {
+          setError('Invalid email or password. Please try again.')
+        } else {
+          setError(authError.message || 'Failed to sign in. Please try again.')
+        }
+        setLoading(false)
+        return
       }
-    } catch (err) {
-      setError('An unexpected error occurred')
-    } finally {
+
+      // Check if session was created
+      if (data?.session?.user) {
+        // Session created successfully - redirect to dashboard
+        // Add small delay to ensure auth context updates
+        setTimeout(() => {
+          router.push('/dashboard')
+        }, 500)
+        return
+      }
+
+      setError('Login failed. Please try again.')
+      setLoading(false)
+    } catch (err: any) {
+      console.error('Login error:', err)
+      setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }
   }
