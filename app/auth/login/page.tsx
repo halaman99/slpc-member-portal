@@ -38,7 +38,7 @@ export default function LoginPage() {
       console.log('🔐 Auth response:', { data, authError })
 
       if (authError) {
-        const errorMsg = authError.message?.toLowerCase() || ''
+        const errorMsg = (authError as any).message?.toLowerCase() || ''
         console.error('❌ Auth error:', errorMsg)
         
         if (errorMsg.includes('email_not_confirmed')) {
@@ -48,7 +48,7 @@ export default function LoginPage() {
         } else if (errorMsg.includes('network') || errorMsg.includes('fetch')) {
           setError('Network error. Please check your connection.')
         } else {
-          setError(authError.message || 'Failed to sign in. Please try again.')
+          setError((authError as any).message || 'Failed to sign in. Please try again.')
         }
         setLoading(false)
         return
