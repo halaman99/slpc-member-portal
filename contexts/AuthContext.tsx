@@ -40,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         
         if (sessionError) {
           console.error('Session error:', sessionError)
-          setError(sessionError.message)
+          setError((sessionError as any).message || 'Session error occurred')
         }
 
         if (session?.user) {
