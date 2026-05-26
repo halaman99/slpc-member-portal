@@ -77,3 +77,65 @@ export type AttendanceStats = {
   unexcused_absences: number
   monthly_attendance_rate: number
 }
+
+// ============================================================================
+// ADMIN TYPES
+// ============================================================================
+
+export type AdminUser = Member & {
+  is_admin: boolean
+  admin_approved_by: string | null
+  admin_requested_at: string | null
+  is_deleted: boolean
+  updated_at: string
+}
+
+export type AdminInvite = {
+  id: string
+  inviter_id: string
+  invitee_email: string
+  status: 'pending' | 'accepted' | 'rejected'
+  created_at: string
+  responded_at: string | null
+}
+
+export type AuditLog = {
+  id: string
+  user_id: string | null
+  action: string
+  table_name: string
+  record_id: string | null
+  old_values: Record<string, any> | null
+  new_values: Record<string, any> | null
+  ip_address: string | null
+  created_at: string
+}
+
+export type MemberFormData = {
+  full_name: string
+  email: string
+  phone?: string
+  role: string
+  avatar_color?: string
+}
+
+export type DutyFormData = {
+  member_id: string
+  date: string
+  time: string
+  mass_type: string
+  role: string
+  status?: 'scheduled' | 'served' | 'absent' | 'late' | 'standby'
+}
+
+export type EventFormData = {
+  title: string
+  date: string
+  description: string
+  location: string
+  event_type: 'feast' | 'training' | 'recollection' | 'outreach'
+}
+
+export type AdminRequestData = {
+  invitee_email: string
+}

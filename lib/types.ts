@@ -3,12 +3,40 @@ export type Member = {
   email: string
   full_name: string
   role: string
+  phone?: string
   avatar_initials: string
   avatar_color: string
   attendance_rate: number
   badges_earned: number
+  is_admin?: boolean
+  is_deleted?: boolean
+  admin_approved_by?: string | null
+  admin_requested_at?: string | null
   created_at: string
   updated_at: string
+}
+
+// Admin-specific types
+export interface MemberFilters {
+  search?: string
+  role?: string
+  isAdmin?: boolean
+  joinedAfter?: Date
+}
+
+export interface MemberFormData {
+  full_name: string
+  email: string
+  phone?: string
+  role: string
+}
+
+export interface DutyFormData {
+  title: string
+  description?: string
+  assigned_to: string[]
+  due_date: string
+  status: 'not_started' | 'in_progress' | 'completed'
 }
 
 export type Duty = {
