@@ -1,0 +1,184 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.pg{background:#1a0808;font-family:var(--font-sans);}
+.hero{background:#2a1010;padding:32px 24px;text-align:center;border-bottom:0.5px solid rgba(201,162,39,0.2);}
+.cross-lg{display:inline-block;width:28px;height:28px;position:relative;margin-bottom:12px;}
+.cross-lg::before,.cross-lg::after{content:'';position:absolute;background:#c9a227;border-radius:2px;}
+.cross-lg::before{width:5px;height:28px;left:11px;top:0;}
+.cross-lg::after{width:28px;height:5px;left:0;top:11px;}
+.hero h1{font-family:var(--font-serif);color:#f5f0e8;font-size:24px;font-weight:500;margin-bottom:6px;}
+.hero p{color:#8a6a7a;font-size:13px;max-width:420px;margin:0 auto 20px;}
+.why-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:0;}
+.why-card{background:#1a0808;border:0.5px solid rgba(201,162,39,0.2);border-radius:8px;padding:12px 16px;text-align:center;min-width:130px;}
+.why-icon{font-size:20px;color:#c9a227;margin-bottom:6px;}
+.why-title{font-size:12px;font-weight:500;color:#e8dcc8;}
+.why-desc{font-size:11px;color:#6a5060;margin-top:2px;}
+.form-wrap{max-width:580px;margin:0 auto;padding:28px 24px;}
+.steps-bar{display:flex;align-items:center;margin-bottom:28px;}
+.step-item{display:flex;align-items:center;gap:6px;flex:1;}
+.step-circle{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;}
+.sc-done{background:#c9a227;color:#1a0808;}
+.sc-active{background:#5c1a1a;border:1.5px solid #c9a227;color:#c9a227;}
+.sc-inactive{background:#2a1a1a;border:0.5px solid #3a2a2a;color:#4a3a3a;}
+.step-label{font-size:11px;}
+.sl-done{color:#c9a227;}
+.sl-active{color:#f5f0e8;font-weight:500;}
+.sl-inactive{color:#3a2a2a;}
+.step-line{flex:1;height:0.5px;background:#2a1a1a;margin:0 6px;}
+.step-line.done{background:#c9a227;}
+.section-block{background:#2a1010;border-radius:10px;border:0.5px solid rgba(201,162,39,0.15);padding:20px;margin-bottom:16px;}
+.section-head{font-size:13px;font-weight:500;color:#c9a227;margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.field-full{margin-bottom:12px;}
+.field label{display:block;font-size:11px;color:#8a6a7a;margin-bottom:5px;font-weight:500;}
+.field input,.field select,.field textarea{width:100%;background:#1a0808;border:0.5px solid #3a2a2a;border-radius:6px;padding:9px 12px;font-size:13px;color:#e8dcc8;font-family:var(--font-sans);outline:none;}
+.field input::placeholder,.field textarea::placeholder{color:#3a2a2a;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#c9a227;}
+.field select option{background:#1a0808;}
+.field textarea{min-height:70px;resize:none;}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;}
+.radio-opt{display:flex;align-items:center;gap:6px;background:#1a0808;border:0.5px solid #3a2a2a;border-radius:6px;padding:7px 12px;cursor:pointer;font-size:12px;color:#8a6a7a;}
+.radio-opt.selected{border-color:#c9a227;color:#c9a227;background:#2a1a0a;}
+.radio-dot{width:12px;height:12px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;}
+.radio-dot-inner{width:5px;height:5px;border-radius:50%;background:#c9a227;display:none;}
+.radio-opt.selected .radio-dot-inner{display:block;}
+.check-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;cursor:pointer;}
+.check-box{width:14px;height:14px;border-radius:3px;border:0.5px solid #4a3a3a;background:#1a0808;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.check-box.checked{background:#c9a227;border-color:#c9a227;color:#1a0808;}
+.check-label{font-size:12px;color:#8a6a7a;line-height:1.4;}
+.testimonial{background:#1a0808;border-left:2px solid #c9a227;border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:16px;}
+.testi-text{font-family:var(--font-serif);font-size:13px;color:#c8b8a0;font-style:italic;line-height:1.6;}
+.testi-name{font-size:11px;color:#6a5060;margin-top:6px;}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:4px;}
+.btn-back{background:transparent;border:0.5px solid #3a2a2a;color:#8a6a7a;font-size:13px;padding:10px 20px;border-radius:6px;cursor:pointer;}
+.btn-next{background:#c9a227;color:#1a0808;font-size:13px;font-weight:500;padding:10px 24px;border-radius:6px;border:none;cursor:pointer;}
+.note{font-size:11px;color:#4a3a3a;text-align:center;margin-top:12px;}
+</style>
+
+<div class="pg">
+  <div class="hero">
+    <div class="cross-lg"></div>
+    <h1>Called to Serve</h1>
+    <p>Join the Ministry of Altar Servers and grow in faith, community, and service to the Church.</p>
+    <div class="why-row">
+      <div class="why-card">
+        <div class="why-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+        <div class="why-title">Spiritual growth</div>
+        <div class="why-desc">Deepen your faith through service</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="why-title">Brotherhood</div>
+        <div class="why-desc">Be part of a close community</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+        <div class="why-title">Formation</div>
+        <div class="why-desc">Learn liturgy & leadership skills</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
+        <div class="why-title">Recognition</div>
+        <div class="why-desc">Earn badges & achievements</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <div class="steps-bar">
+      <div class="step-item">
+        <div class="step-circle sc-done"><i class="ti ti-check" style="font-size:11px;" aria-hidden="true"></i></div>
+        <span class="step-label sl-done">Personal info</span>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step-item">
+        <div class="step-circle sc-active">2</div>
+        <span class="step-label sl-active">Background</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle sc-inactive">3</div>
+        <span class="step-label sl-inactive">Parent consent</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item">
+        <div class="step-circle sc-inactive">4</div>
+        <span class="step-label sl-inactive">Confirmation</span>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-head"><i class="ti ti-user" style="font-size:15px;" aria-hidden="true"></i>Personal information</div>
+      <div class="field-row">
+        <div class="field"><label>First name</label><input type="text" placeholder="e.g. Jose" value="Jose"></div>
+        <div class="field"><label>Last name</label><input type="text" placeholder="e.g. Reyes" value="Reyes"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Date of birth</label><input type="text" placeholder="MM / DD / YYYY" value="03 / 14 / 2011"></div>
+        <div class="field"><label>Grade / year level</label><input type="text" placeholder="e.g. Grade 8"></div>
+      </div>
+      <div class="field-full field"><label>Home address</label><input type="text" placeholder="Street, Barangay, City"></div>
+      <div class="field-row">
+        <div class="field"><label>Contact number</label><input type="text" placeholder="09XX XXX XXXX"></div>
+        <div class="field"><label>Email address</label><input type="text" placeholder="your@email.com"></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-head"><i class="ti ti-church" style="font-size:15px;" aria-hidden="true"></i>Ministry background</div>
+      <div class="field-full" style="margin-bottom:14px;">
+        <div style="font-size:11px;color:#8a6a7a;margin-bottom:8px;font-weight:500;">Have you served as an altar server before?</div>
+        <div class="radio-group">
+          <div class="radio-opt selected"><div class="radio-dot"><div class="radio-dot-inner"></div></div>Yes, in this parish</div>
+          <div class="radio-opt"><div class="radio-dot"><div class="radio-dot-inner"></div></div>Yes, in another parish</div>
+          <div class="radio-opt"><div class="radio-dot"><div class="radio-dot-inner"></div></div>No, first time</div>
+        </div>
+      </div>
+      <div class="field-full" style="margin-bottom:14px;">
+        <div style="font-size:11px;color:#8a6a7a;margin-bottom:8px;font-weight:500;">Which Masses can you regularly attend?</div>
+        <div class="radio-group">
+          <div class="radio-opt selected"><div class="radio-dot"><div class="radio-dot-inner"></div></div>6:00 AM Dawn</div>
+          <div class="radio-opt selected"><div class="radio-dot"><div class="radio-dot-inner"></div></div>8:00 AM Parish</div>
+          <div class="radio-opt"><div class="radio-dot"><div class="radio-dot-inner"></div></div>10:00 AM Family</div>
+          <div class="radio-opt"><div class="radio-dot"><div class="radio-dot-inner"></div></div>6:00 PM Evening</div>
+        </div>
+      </div>
+      <div class="field-full field">
+        <label>Why do you want to join the ministry?</label>
+        <textarea placeholder="Share your motivation for serving..."></textarea>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-text">"Being an altar server taught me discipline, love for the Mass, and how to truly give myself in service. It changed my life."</div>
+      <div class="testi-name">— Angelo L., Acolyte · 3 years in the ministry</div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-head"><i class="ti ti-checklist" style="font-size:15px;" aria-hidden="true"></i>Commitments & agreements</div>
+      <div class="check-row">
+        <div class="check-box checked"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="check-label">I commit to attending assigned Masses and formation sessions regularly.</div>
+      </div>
+      <div class="check-row">
+        <div class="check-box checked"><i class="ti ti-check" aria-hidden="true"></i></div>
+        <div class="check-label">I will notify the head server in advance if I cannot fulfill a duty.</div>
+      </div>
+      <div class="check-row">
+        <div class="check-box"></div>
+        <div class="check-label">I have read the Ministry Handbook and agree to its guidelines and expectations.</div>
+      </div>
+      <div class="check-row">
+        <div class="check-box"></div>
+        <div class="check-label">I give consent for photos taken during ministry activities to be used for the parish website and social media.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back"><i class="ti ti-arrow-left" style="font-size:13px;margin-right:4px;" aria-hidden="true"></i>Back</button>
+      <button class="btn-next">Next: Parent consent <i class="ti ti-arrow-right" style="font-size:13px;margin-left:4px;" aria-hidden="true"></i></button>
+    </div>
+    <div class="note">Step 2 of 4 · Your information is kept confidential within the parish.</div>
+  </div>
+</div>

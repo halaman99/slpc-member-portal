@@ -1,0 +1,376 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.portal{background:#1a0808;min-height:100vh;font-family:var(--font-sans);}
+.sidebar{background:#2a1010;width:200px;padding:20px 0;position:absolute;top:0;left:0;bottom:0;}
+.layout{display:flex;min-height:100vh;}
+.sidebar-logo{padding:0 16px 20px;border-bottom:0.5px solid rgba(201,162,39,0.2);}
+.sidebar-logo .name{color:#f5f0e8;font-size:13px;font-weight:500;}
+.sidebar-logo .parish{color:#8a6070;font-size:11px;}
+.sidebar-logo .cross-sm{display:inline-block;width:14px;height:14px;position:relative;margin-right:8px;vertical-align:middle;}
+.sidebar-logo .cross-sm::before,.sidebar-logo .cross-sm::after{content:'';position:absolute;background:#c9a227;border-radius:1px;}
+.sidebar-logo .cross-sm::before{width:3px;height:14px;left:5px;top:0;}
+.sidebar-logo .cross-sm::after{width:14px;height:3px;left:0;top:4px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;color:#8a6a7a;font-size:13px;cursor:pointer;border-left:3px solid transparent;}
+.nav-item.active{color:#f5f0e8;background:rgba(201,162,39,0.1);border-left-color:#c9a227;}
+.nav-item i{font-size:16px;}
+.main{margin-left:200px;padding:24px;flex:1;}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.top-bar h1{color:#f5f0e8;font-size:18px;font-weight:500;}
+.user-chip{display:flex;align-items:center;gap:8px;}
+.avatar-sm{width:32px;height:32px;border-radius:50%;background:#5c1a1a;border:1.5px solid #c9a227;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#c9a227;}
+.user-chip span{color:#c8b8a0;font-size:13px;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.stat{background:#2a1010;border-radius:10px;padding:14px;border:0.5px solid rgba(201,162,39,0.15);}
+.stat-label{font-size:11px;color:#8a6070;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.stat-val{font-size:22px;font-weight:500;color:#f5f0e8;}
+.stat-sub{font-size:11px;color:#6a5060;margin-top:3px;}
+.stat-badge{font-size:10px;padding:2px 7px;border-radius:10px;margin-left:auto;}
+.badge-green{background:#0f3a1a;color:#4a9a5a;}
+.badge-amber{background:#3a2a0a;color:#c9a227;}
+.badge-red{background:#3a0a0a;color:#c95a5a;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.card{background:#2a1010;border-radius:10px;padding:16px;border:0.5px solid rgba(201,162,39,0.15);}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.card-title{color:#e8dcc8;font-size:13px;font-weight:500;}
+.card-link{font-size:11px;color:#c9a227;cursor:pointer;}
+.duty-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);}
+.duty-row:last-child{border-bottom:none;}
+.duty-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.d-gold{background:#c9a227;}
+.d-gray{background:#4a3a3a;}
+.d-green{background:#3a7a3a;}
+.duty-time{font-size:11px;color:#c9a227;min-width:60px;font-weight:500;}
+.duty-mass{font-size:12px;color:#e8dcc8;flex:1;}
+.duty-role{font-size:11px;color:#6a5060;background:#1a0808;padding:2px 8px;border-radius:8px;}
+.progress-wrap{margin-bottom:12px;}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.prog-label{font-size:12px;color:#c8b8a0;}
+.prog-val{font-size:12px;color:#c9a227;font-weight:500;}
+.prog-bar{height:5px;background:#3a1a1a;border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;background:#c9a227;}
+.prog-fill.green{background:#3a9a4a;}
+.prog-fill.red{background:#c95a5a;}
+.formation-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);}
+.formation-item:last-child{border-bottom:none;}
+.f-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.f-pdf{background:#3a1010;color:#c95a5a;}
+.f-video{background:#102a1a;color:#4a9a5a;}
+.f-doc{background:#1a1a3a;color:#5a6ac9;}
+.f-name{font-size:12px;color:#e8dcc8;font-weight:500;}
+.f-type{font-size:11px;color:#6a5060;}
+.f-dl{margin-left:auto;color:#c9a227;font-size:15px;cursor:pointer;}
+.full-card{margin-bottom:16px;}
+.event-item{display:flex;gap:12px;padding:10px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);align-items:center;}
+.event-item:last-child{border-bottom:none;}
+.event-date{text-align:center;min-width:36px;}
+.event-day{font-size:18px;font-weight:500;color:#c9a227;line-height:1;}
+.event-month{font-size:10px;color:#8a6070;text-transform:uppercase;}
+.event-info{flex:1;}
+.event-name{font-size:13px;color:#e8dcc8;font-weight:500;}
+.event-detail{font-size:11px;color:#6a5070;margin-top:2px;}
+.event-tag{font-size:10px;padding:2px 8px;border-radius:8px;border:0.5px solid;}
+.tag-feast{background:#2a1a0a;color:#c9a227;border-color:#5a3a0a;}
+.tag-training{background:#0a1a2a;color:#5a8ac9;border-color:#0a2a4a;}
+.tag-recolle{background:#1a0a2a;color:#9a5ac9;border-color:#3a1a5a;}
+.tag-outreach{background:#0a2a1a;color:#4a9a6a;border-color:#0a3a2a;}
+.announce-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);}
+.announce-item:last-child{border-bottom:none;}
+.a-dot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.a-title{font-size:12px;color:#e8dcc8;font-weight:500;}
+.a-sub{font-size:11px;color:#6a5060;margin-top:2px;}
+.a-time{font-size:10px;color:#5a4050;margin-left:auto;white-space:nowrap;}
+.bottom-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;}
+.member-list-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);}
+.member-list-item:last-child{border-bottom:none;}
+.av-xs{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;}
+.av-a{background:#3a1a10;color:#c9a227;}
+.av-b{background:#1a1a3a;color:#8a9ac9;}
+.av-c{background:#1a3a1a;color:#6a9a5a;}
+.av-d{background:#3a1a3a;color:#c95ac9;}
+.av-e{background:#1a2a3a;color:#5a8ac9;}
+.m-name{font-size:12px;color:#e8dcc8;flex:1;}
+.m-role{font-size:10px;color:#6a5060;}
+.attend-chip{font-size:10px;padding:1px 7px;border-radius:8px;}
+.att-present{background:#0a2a0a;color:#4a9a4a;}
+.att-absent{background:#2a0a0a;color:#c95a5a;}
+.att-late{background:#2a1a0a;color:#c9a227;}
+</style>
+
+<div class="portal">
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div style="margin-bottom:6px;"><span class="cross-sm"></span><span class="name">Member Portal</span></div>
+        <div class="parish">St. Lodovico Pavoni</div>
+      </div>
+      <div style="padding-top:12px;">
+        <div class="nav-item active"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard</div>
+        <div class="nav-item"><i class="ti ti-calendar" aria-hidden="true"></i>My Schedule</div>
+        <div class="nav-item"><i class="ti ti-chart-bar" aria-hidden="true"></i>Attendance</div>
+        <div class="nav-item"><i class="ti ti-book" aria-hidden="true"></i>Formation</div>
+        <div class="nav-item"><i class="ti ti-calendar-event" aria-hidden="true"></i>Events</div>
+        <div class="nav-item"><i class="ti ti-users" aria-hidden="true"></i>Members</div>
+        <div class="nav-item"><i class="ti ti-bell" aria-hidden="true"></i>Announcements</div>
+        <div style="margin-top:auto;padding:16px;position:absolute;bottom:0;left:0;right:0;border-top:0.5px solid rgba(201,162,39,0.15);">
+          <div class="nav-item" style="padding:0;"><i class="ti ti-settings" aria-hidden="true"></i><span style="color:#6a5060;font-size:12px;">Settings</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="top-bar">
+        <div>
+          <div style="font-size:11px;color:#8a6070;margin-bottom:2px;">Good morning,</div>
+          <h1>Jose Reyes <span style="color:#c9a227;font-size:14px;font-weight:400;">· Head Server</span></h1>
+        </div>
+        <div class="user-chip">
+          <i class="ti ti-bell" style="font-size:18px;color:#8a6070;" aria-hidden="true"></i>
+          <div class="avatar-sm">JR</div>
+          <span>Jose R.</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label"><i class="ti ti-check" style="font-size:13px;" aria-hidden="true"></i>Attendance rate <span class="stat-badge badge-green">Good</span></div>
+          <div class="stat-val">92%</div>
+          <div class="stat-sub">46 of 50 duties served</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"><i class="ti ti-calendar" style="font-size:13px;" aria-hidden="true"></i>Next duty</div>
+          <div class="stat-val">Sun</div>
+          <div class="stat-sub">8:00 AM · Solemn Mass</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"><i class="ti ti-star" style="font-size:13px;" aria-hidden="true"></i>Formation progress <span class="stat-badge badge-amber">In progress</span></div>
+          <div class="stat-val">3/5</div>
+          <div class="stat-sub">Modules completed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label"><i class="ti ti-award" style="font-size:13px;" aria-hidden="true"></i>Badges earned</div>
+          <div class="stat-val">7</div>
+          <div class="stat-sub">2 new this month</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-calendar-week" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>This week's duties</div>
+            <span class="card-link">View all</span>
+          </div>
+          <div class="duty-row">
+            <div class="duty-dot d-gold"></div>
+            <div class="duty-time">Sun 6:00 AM</div>
+            <div class="duty-mass">Dawn Mass</div>
+            <div class="duty-role">Torchbearer</div>
+          </div>
+          <div class="duty-row">
+            <div class="duty-dot d-gold"></div>
+            <div class="duty-time">Sun 8:00 AM</div>
+            <div class="duty-mass">Solemn Parish Mass</div>
+            <div class="duty-role">Head Server</div>
+          </div>
+          <div class="duty-row">
+            <div class="duty-dot d-green"></div>
+            <div class="duty-time">Wed 6:00 PM</div>
+            <div class="duty-mass">Weekday Mass</div>
+            <div class="duty-role">Acolyte</div>
+          </div>
+          <div class="duty-row">
+            <div class="duty-dot d-gray"></div>
+            <div class="duty-time">Fri 6:00 PM</div>
+            <div class="duty-mass">Votive Mass</div>
+            <div class="duty-role">On standby</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-chart-pie" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>Attendance overview</div>
+            <span class="card-link">May 2026</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="prog-top"><span class="prog-label">Masses served</span><span class="prog-val">92%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:92%"></div></div>
+          </div>
+          <div class="progress-wrap">
+            <div class="prog-top"><span class="prog-label">Formations attended</span><span class="prog-val">80%</span></div>
+            <div class="prog-bar"><div class="prog-fill green" style="width:80%"></div></div>
+          </div>
+          <div class="progress-wrap">
+            <div class="prog-top"><span class="prog-label">Events joined</span><span class="prog-val">67%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:67%"></div></div>
+          </div>
+          <div class="progress-wrap">
+            <div class="prog-top"><span class="prog-label">Unexcused absences</span><span class="prog-val" style="color:#c95a5a;">2</span></div>
+            <div class="prog-bar"><div class="prog-fill red" style="width:12%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-book" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>Formation materials</div>
+            <span class="card-link">View library</span>
+          </div>
+          <div class="formation-item">
+            <div class="f-icon f-pdf"><i class="ti ti-file-type-pdf" aria-hidden="true"></i></div>
+            <div>
+              <div class="f-name">Vestment guide</div>
+              <div class="f-type">PDF · 2.4 MB</div>
+            </div>
+            <i class="ti ti-download f-dl" aria-label="Download"></i>
+          </div>
+          <div class="formation-item">
+            <div class="f-icon f-video"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+            <div>
+              <div class="f-name">Mass of the Roman Rite — intro</div>
+              <div class="f-type">Video · 18 min</div>
+            </div>
+            <i class="ti ti-external-link f-dl" aria-label="Open"></i>
+          </div>
+          <div class="formation-item">
+            <div class="f-icon f-doc"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+            <div>
+              <div class="f-name">Server prayers booklet</div>
+              <div class="f-type">PDF · 1.1 MB</div>
+            </div>
+            <i class="ti ti-download f-dl" aria-label="Download"></i>
+          </div>
+          <div class="formation-item">
+            <div class="f-icon f-pdf"><i class="ti ti-file-type-pdf" aria-hidden="true"></i></div>
+            <div>
+              <div class="f-name">Holy Week procedures</div>
+              <div class="f-type">PDF · 3.8 MB</div>
+            </div>
+            <i class="ti ti-download f-dl" aria-label="Download"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-bell" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>Announcements</div>
+            <span class="card-link">All</span>
+          </div>
+          <div class="announce-item">
+            <div class="a-dot" style="background:#c9a227;"></div>
+            <div>
+              <div class="a-title">Pentecost Mass — report by 7:30 AM</div>
+              <div class="a-sub">Full vestments. Be early.</div>
+            </div>
+            <div class="a-time">Today</div>
+          </div>
+          <div class="announce-item">
+            <div class="a-dot" style="background:#4a9a6a;"></div>
+            <div>
+              <div class="a-title">June recollection confirmed</div>
+              <div class="a-sub">June 1 · 9 AM · Formation room</div>
+            </div>
+            <div class="a-time">2d ago</div>
+          </div>
+          <div class="announce-item">
+            <div class="a-dot" style="background:#c95a5a;"></div>
+            <div>
+              <div class="a-title">Schedule swap request — Angelo L.</div>
+              <div class="a-sub">Requesting trade for June 7 Mass</div>
+            </div>
+            <div class="a-time">3d ago</div>
+          </div>
+          <div class="announce-item">
+            <div class="a-dot" style="background:#8a6a9a;"></div>
+            <div>
+              <div class="a-title">New formation video uploaded</div>
+              <div class="a-sub">Rite of Mass — Part 2</div>
+            </div>
+            <div class="a-time">5d ago</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="card full-card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-calendar-event" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>Upcoming events</div>
+            <span class="card-link">View calendar</span>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">25</div><div class="event-month">May</div></div>
+            <div class="event-info">
+              <div class="event-name">Pentecost Sunday — Solemn Mass</div>
+              <div class="event-detail">6:00 AM & 8:00 AM · Main altar</div>
+            </div>
+            <div class="event-tag tag-feast">Feast day</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">1</div><div class="event-month">Jun</div></div>
+            <div class="event-info">
+              <div class="event-name">Monthly recollection</div>
+              <div class="event-detail">9:00 AM – 12:00 NN · Formation room</div>
+            </div>
+            <div class="event-tag tag-recolle">Recollection</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">7</div><div class="event-month">Jun</div></div>
+            <div class="event-info">
+              <div class="event-name">Server training session</div>
+              <div class="event-detail">2:00 PM · Sanctuary — new members</div>
+            </div>
+            <div class="event-tag tag-training">Training</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">13</div><div class="event-month">Jun</div></div>
+            <div class="event-info">
+              <div class="event-name">Feast of St. Anthony — procession</div>
+              <div class="event-detail">6:00 PM Mass + Procession</div>
+            </div>
+            <div class="event-tag tag-feast">Feast day</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date"><div class="event-day">21</div><div class="event-month">Jun</div></div>
+            <div class="event-info">
+              <div class="event-name">Community outreach — Pavoni Day</div>
+              <div class="event-detail">7:00 AM – 4:00 PM · Parish grounds</div>
+            </div>
+            <div class="event-tag tag-outreach">Outreach</div>
+          </div>
+        </div>
+
+        <div class="card full-card">
+          <div class="card-header">
+            <div class="card-title"><i class="ti ti-users" style="font-size:14px;margin-right:6px;color:#c9a227;" aria-hidden="true"></i>Team roster</div>
+            <span class="card-link">All members</span>
+          </div>
+          <div class="member-list-item">
+            <div class="av-xs av-a">JR</div>
+            <div><div class="m-name">Jose Reyes</div><div class="m-role">Head Server</div></div>
+            <span class="attend-chip att-present">Present</span>
+          </div>
+          <div class="member-list-item">
+            <div class="av-xs av-b">MC</div>
+            <div><div class="m-name">Maria Cruz</div><div class="m-role">Thurifer</div></div>
+            <span class="attend-chip att-present">Present</span>
+          </div>
+          <div class="member-list-item">
+            <div class="av-xs av-c">AL</div>
+            <div><div class="m-name">Angelo Lim</div><div class="m-role">Acolyte</div></div>
+            <span class="attend-chip att-late">Late</span>
+          </div>
+          <div class="member-list-item">
+            <div class="av-xs av-d">RD</div>
+            <div><div class="m-name">Rosa Dela Cruz</div><div class="m-role">Cross Bearer</div></div>
+            <span class="attend-chip att-absent">Absent</span>
+          </div>
+          <div class="member-list-item">
+            <div class="av-xs av-e">BP</div>
+            <div><div class="m-name">Ben Pascual</div><div class="m-role">Torchbearer</div></div>
+            <span class="attend-chip att-present">Present</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
